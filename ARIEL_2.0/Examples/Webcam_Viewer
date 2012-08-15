@@ -1,0 +1,95 @@
+((lp1
+(S'<class node.SimpleCamera at 0x24997fc0>'
+(l(lp2
+(S'image'
+p3
+I614220224
+tp4
+a(dp5
+S'mirrorImage'
+p6
+I0
+sS'indexvalue'
+p7
+F0
+s(I743
+I264
+I43
+I43
+ttp8
+a(S'<class node.Image at 0x249a21b0>'
+(lp9
+(S'index'
+p10
+I614249056
+tp11
+a(S'x position'
+p12
+I614249536
+tp13
+a(S'y position'
+p14
+I614250016
+tp15
+a(S'z position'
+p16
+I614250496
+tp17
+a(S'matrix'
+p18
+I614250976
+tp19
+a(S'rotation'
+p20
+I614251456
+tp21
+a(S'scale'
+p22
+I614251936
+tp23
+a(S'transparency'
+p24
+I614252416
+tp25
+a(S'to draw or not to draw'
+p26
+I614257048
+tp27
+a(S'mask'
+p28
+I614257528
+tp29
+a(S'image data'
+p30
+I614258008
+tp31
+a(lp32
+(S'image width'
+p33
+I614258488
+tp34
+a(S'image height'
+p35
+I614259168
+tp36
+a(dp37
+S'anchor'
+p38
+I0
+sS'autoAlign'
+p39
+I0
+sS'filename'
+p40
+g40
+s(I491
+I389
+I275
+I43
+ttp41
+a(lp42
+(I614220224
+I614258008
+tp43
+atp44
+.

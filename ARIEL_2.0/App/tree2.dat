@@ -1,0 +1,350 @@
+events: Ticks
+summary: 30643
+fi=test.py
+fn=test test.py:6
+6 338
+cfn=setup /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/magmaps.py:11
+cfi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/magmaps.py
+calls=1 11
+6 1009
+cfn=compute /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/magmaps.py:33
+cfi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/magmaps.py
+calls=9 33
+6 29295
+
+fi=~
+fn=<open> ~:0
+0 29
+
+fi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py
+fn=interpB2 /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py:178
+178 5137
+cfn=<_ctypes.byref> ~:0
+cfi=~
+calls=1728504 0
+178 371
+
+fi=~
+fn=<method 'split' of 'str' objects> ~:0
+0 3
+
+fi=<string>
+fn=<module> <string>:1
+1 0
+cfn=test test.py:6
+cfi=test.py
+calls=1 6
+1 30643
+
+fi=/System/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/ctypes/__init__.py
+fn=cast /System/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/ctypes/__init__.py:480
+480 0
+
+fi=/System/Library/Frameworks/Python.framework/Versions/2.6/Extras/lib/python/numpy/core/_internal.py
+fn=data_as /System/Library/Frameworks/Python.framework/Versions/2.6/Extras/lib/python/numpy/core/_internal.py:244
+244 0
+cfn=cast /System/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/ctypes/__init__.py:480
+cfi=/System/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/ctypes/__init__.py
+calls=18 480
+244 0
+
+fi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py
+fn=fieldlines /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py:220
+220 2
+cfn=interpB2 /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py:178
+cfi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py
+calls=72 178
+220 0
+cfn=<range> ~:0
+cfi=~
+calls=9 0
+220 0
+cfn=<method 'extend' of 'list' objects> ~:0
+cfi=~
+calls=54 0
+220 17
+cfn=magnetbox /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py:239
+cfi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py
+calls=18 239
+220 21128
+cfn=plotlines /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py:277
+cfi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py
+calls=36 277
+220 4210
+
+fi=~
+fn=<math.sin> ~:0
+0 186
+
+fi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py
+fn=readMagFile /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py:382
+382 15
+cfn=<open> ~:0
+cfi=~
+calls=2500 0
+382 29
+cfn=<method 'close' of 'file' objects> ~:0
+cfi=~
+calls=2500 0
+382 16
+cfn=atof /System/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/string.py:380
+cfi=/System/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/string.py
+calls=10000 380
+382 7
+cfn=<method 'readlines' of 'file' objects> ~:0
+cfi=~
+calls=2500 0
+382 826
+cfn=split /System/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/string.py:279
+cfi=/System/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/string.py
+calls=2500 279
+382 6
+
+fi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/magmaps.py
+fn=setup /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/magmaps.py:11
+11 0
+cfn=lookupData /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py:43
+cfi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py
+calls=1 43
+11 1009
+cfn=update /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/magnet.py:14
+cfi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/magnet.py
+calls=2 14
+11 0
+
+fi=~
+fn=<range> ~:0
+0 9
+
+fi=~
+fn=<method 'close' of 'file' objects> ~:0
+0 16
+
+fi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/magmaps.py
+fn=compute /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/magmaps.py:33
+33 0
+cfn=fieldlines /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py:220
+cfi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py
+calls=9 220
+33 25359
+cfn=showGrid /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py:147
+cfi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py
+calls=9 147
+33 11
+cfn=show /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/magnet.py:42
+cfi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/magnet.py
+calls=18 42
+33 0
+cfn=update /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/magnet.py:14
+cfi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/magnet.py
+calls=18 14
+33 0
+cfn=showfromFile /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py:51
+cfi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py
+calls=9 51
+33 3924
+
+fi=~
+fn=<_ctypes.POINTER> ~:0
+0 0
+
+fi=/System/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/string.py
+fn=atof /System/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/string.py:380
+380 7
+
+fi=~
+fn=<math.cos> ~:0
+0 543
+
+fi=~
+fn=<_ctypes.byref> ~:0
+0 371
+
+fi=~
+fn=<method 'extend' of 'list' objects> ~:0
+0 27
+
+fi=~
+fn=<method 'readlines' of 'file' objects> ~:0
+0 826
+
+fi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py
+fn=showGrid /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py:147
+147 11
+cfn=<range> ~:0
+cfi=~
+calls=441 0
+147 0
+
+fi=~
+fn=<math.sqrt> ~:0
+0 359
+
+fi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py
+fn=proxtest /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py:377
+377 7092
+cfn=<math.sin> ~:0
+cfi=~
+calls=936000 0
+377 148
+cfn=<math.cos> ~:0
+cfi=~
+calls=3060000 0
+377 505
+cfn=<math.atan2> ~:0
+cfi=~
+calls=3996000 0
+377 858
+
+fi=~
+fn=<method 'append' of 'list' objects> ~:0
+0 159
+
+fi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py
+fn=lookupData /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py:43
+43 107
+cfn=readMagFile /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py:382
+cfi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py
+calls=2500 382
+43 901
+cfn=<range> ~:0
+cfi=~
+calls=51 0
+43 0
+
+fi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/magnet.py
+fn=show /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/magnet.py:42
+42 0
+
+fi=/System/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/string.py
+fn=split /System/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/string.py:279
+279 2
+cfn=<method 'split' of 'str' objects> ~:0
+cfi=~
+calls=2500 0
+279 3
+
+fi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py
+fn=magnetbox /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py:239
+239 4
+cfn=interpB2 /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py:178
+cfi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py
+calls=180 178
+239 1
+cfn=<range> ~:0
+cfi=~
+calls=18 0
+239 0
+cfn=<method 'extend' of 'list' objects> ~:0
+cfi=~
+calls=180 0
+239 10
+cfn=<math.sqrt> ~:0
+cfi=~
+calls=18 0
+239 0
+cfn=plotlines /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py:277
+cfi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py
+calls=180 277
+239 21111
+
+fi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py
+fn=interpB /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py:156
+156 2412
+
+fi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/magnet.py
+fn=update /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/magnet.py:14
+14 0
+cfn=<math.sqrt> ~:0
+cfi=~
+calls=20 0
+14 0
+
+fi=~
+fn=<math.atan2> ~:0
+0 919
+
+fi=/System/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/colorsys.py
+fn=hsv_to_rgb /System/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/colorsys.py:113
+113 2305
+
+fi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py
+fn=plotlines /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py:277
+277 8405
+cfn=interpB2 /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py:178
+cfi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py
+calls=864000 178
+277 5507
+cfn=<range> ~:0
+cfi=~
+calls=432 0
+277 8
+cfn=<math.sqrt> ~:0
+cfi=~
+calls=1728000 0
+277 331
+cfn=proxtest /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py:377
+cfi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py
+calls=864000 377
+277 8605
+cfn=<method 'append' of 'list' objects> ~:0
+cfi=~
+calls=864000 0
+277 159
+cfn=<math.atan2> ~:0
+cfi=~
+calls=216 0
+277 0
+cfn=hsv_to_rgb /System/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/colorsys.py:113
+cfi=/System/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/colorsys.py
+calls=864000 113
+277 2305
+
+fi=/System/Library/Frameworks/Python.framework/Versions/2.6/Extras/lib/python/numpy/core/_internal.py
+fn=__init__ /System/Library/Frameworks/Python.framework/Versions/2.6/Extras/lib/python/numpy/core/_internal.py:231
+231 0
+
+fi=~
+fn=<method 'disable' of '_lsprof.Profiler' objects> ~:0
+0 0
+
+fi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py
+fn=showfromFile /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py:51
+51 1345
+cfn=data_as /System/Library/Frameworks/Python.framework/Versions/2.6/Extras/lib/python/numpy/core/_internal.py:244
+cfi=/System/Library/Frameworks/Python.framework/Versions/2.6/Extras/lib/python/numpy/core/_internal.py
+calls=18 244
+51 0
+cfn=<math.sin> ~:0
+cfi=~
+calls=180000 0
+51 37
+cfn=<range> ~:0
+cfi=~
+calls=459 0
+51 0
+cfn=<_ctypes.POINTER> ~:0
+cfi=~
+calls=18 0
+51 0
+cfn=<math.cos> ~:0
+cfi=~
+calls=180000 0
+51 38
+cfn=<math.sqrt> ~:0
+cfi=~
+calls=135000 0
+51 28
+cfn=interpB /Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py:156
+cfi=/Volumes/virtual1/jpatten/pattenstudio/projects/ariel/vectorfield.py
+calls=45000 156
+51 2412
+cfn=<math.atan2> ~:0
+cfi=~
+calls=225000 0
+51 61
+cfn=__init__ /System/Library/Frameworks/Python.framework/Versions/2.6/Extras/lib/python/numpy/core/_internal.py:231
+cfi=/System/Library/Frameworks/Python.framework/Versions/2.6/Extras/lib/python/numpy/core/_internal.py
+calls=18 231
+51 0
+

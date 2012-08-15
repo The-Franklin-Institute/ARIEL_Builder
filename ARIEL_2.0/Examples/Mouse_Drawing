@@ -1,0 +1,88 @@
+((lp1
+(S'<class node.MouseInput at 0x2498b570>'
+(l(lp2
+(S'Mouse X'
+p3
+I614154688
+tp4
+a(S'Mouse Y'
+p5
+I614155368
+tp6
+a(S'Left Click'
+p7
+I614156048
+tp8
+a(S'Right Click'
+p9
+I614156728
+tp10
+a(d(I588
+I228
+I100
+I43
+ttp11
+a(S'<class node.DataCollector at 0x2498b240>'
+(lp12
+(S'x'
+I614203600
+tp13
+a(S'y'
+I614204080
+tp14
+a(S'trigger'
+p15
+I614204560
+tp16
+a(S'erase all'
+p17
+I614205040
+tp18
+a(S'video sync'
+p19
+I614205520
+tp20
+a(lp21
+(S'vector list'
+p22
+I614206000
+tp23
+a(d(I561
+I334
+I125
+I43
+ttp24
+a(S'<class node.CurveDisplay at 0x2498b270>'
+(lp25
+(S'vector list'
+p26
+I614250736
+tp27
+a(l(dp28
+S'color'
+p29
+S'FFFFFF'
+p30
+s(I558
+I437
+I43
+I43
+ttp31
+a(lp32
+(I614155368
+I614204080
+tp33
+a(I614154688
+I614203600
+tp34
+a(I614206000
+I614250736
+tp35
+a(I614156048
+I614204560
+tp36
+a(I614156728
+I614205040
+tp37
+atp38
+.

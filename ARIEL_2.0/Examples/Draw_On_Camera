@@ -1,0 +1,179 @@
+((lp1
+(S'<class node.SimpleCamera at 0x2497ffc0>'
+(l(lp2
+(S'image'
+p3
+I614171152
+tp4
+a(dp5
+S'mirrorImage'
+p6
+I0
+sS'indexvalue'
+p7
+F0
+s(I862
+I253
+I43
+I43
+ttp8
+a(S'<class node.Image at 0x2498b1b0>'
+(lp9
+(S'index'
+p10
+I614282504
+tp11
+a(S'x position'
+p12
+I614285224
+tp13
+a(S'y position'
+p14
+I614252096
+tp15
+a(S'z position'
+p16
+I614195152
+tp17
+a(S'matrix'
+p18
+I614193832
+tp19
+a(S'rotation'
+p20
+I614194032
+tp21
+a(S'scale'
+p22
+I614192352
+tp23
+a(S'transparency'
+p24
+I614194632
+tp25
+a(S'to draw or not to draw'
+p26
+I614264544
+tp27
+a(S'mask'
+p28
+I694432592
+tp29
+a(S'image data'
+p30
+I694432072
+tp31
+a(lp32
+(S'image width'
+p33
+I694434152
+tp34
+a(S'image height'
+p35
+I694434832
+tp36
+a(dp37
+S'anchor'
+p38
+I0
+sS'autoAlign'
+p39
+I0
+sS'filename'
+p40
+g40
+s(I610
+I453
+I275
+I43
+ttp41
+a(S'<class node.MouseInput at 0x2498b570>'
+(l(lp42
+(S'Mouse X'
+p43
+I614154688
+tp44
+a(S'Mouse Y'
+p45
+I614155368
+tp46
+a(S'Left Click'
+p47
+I614156048
+tp48
+a(S'Right Click'
+p49
+I614156728
+tp50
+a(d(I326
+I245
+I100
+I43
+ttp51
+a(S'<class node.DataCollector at 0x2498b240>'
+(lp52
+(S'x'
+I614203600
+tp53
+a(S'y'
+I614204080
+tp54
+a(S'trigger'
+p55
+I614204560
+tp56
+a(S'erase all'
+p57
+I614205040
+tp58
+a(S'video sync'
+p59
+I614205520
+tp60
+a(lp61
+(S'vector list'
+p62
+I614206000
+tp63
+a(d(I299
+I351
+I125
+I43
+ttp64
+a(S'<class node.CurveDisplay at 0x2498b270>'
+(lp65
+(S'vector list'
+p66
+I614250736
+tp67
+a(l(dp68
+S'color'
+p69
+S'FFFFFF'
+p70
+s(I296
+I454
+I43
+I43
+ttp71
+a(lp72
+(I614206000
+I614250736
+tp73
+a(I614171152
+I694432072
+tp74
+a(I614156048
+I614204560
+tp75
+a(I614154688
+I614203600
+tp76
+a(I614155368
+I614204080
+tp77
+a(I614156728
+I614205040
+tp78
+atp79
+.

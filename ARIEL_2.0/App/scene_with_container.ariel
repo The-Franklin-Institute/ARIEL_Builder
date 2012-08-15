@@ -1,0 +1,94 @@
+((lp1
+(S'<class node.MouseInput at 0x249a65a0>'
+(l(lp2
+(S'Mouse X'
+p3
+I724753264
+tp4
+a(S'Mouse Y'
+p5
+I724751544
+tp6
+a(S'Left Click'
+p7
+I724752144
+tp8
+a(S'Right Click'
+p9
+I724751904
+tp10
+a(d(I355
+I123
+I100
+I43
+ttp11
+a(S'<class node.PrintInput at 0x249a6690>'
+(lp12
+(S'in'
+p13
+I724665688
+tp14
+a(lp15
+(S'out (optional)'
+p16
+I724665448
+tp17
+a(dp18
+S'name'
+p19
+S'print'
+p20
+s(I311
+I338
+I43
+I43
+ttp21
+a(S'<class node.ExpressionBuilder at 0x249a6570>'
+(lp22
+(S'a'
+I724794144
+tp23
+a(S'b'
+I724794624
+tp24
+a(S'c'
+I724795104
+tp25
+a(S'd'
+I724799736
+tp26
+a(lp27
+(S'result'
+p28
+I724800216
+tp29
+a(dp30
+S'expression'
+p31
+S'a+1'
+p32
+s(I316
+I366
+I100
+I43
+ttp33
+a(S'<class node.ContainerTitle at 0x249a6900>'
+(l(l(dp34
+S'title'
+p35
+S'yesput'
+p36
+s(I547
+I256
+I43
+I43
+ttp37
+a(lp38
+(I724753264
+I724794144
+tp39
+a(I724800216
+I724665688
+tp40
+atp41
+.
