@@ -961,6 +961,7 @@ class SimpleKinect(Node):
         self.mirrorImage = 0
         self.vidGrabber = ofxKinect()
         self.colorImg = ofxCvGrayscaleImage()
+        self.realColorImg = ofxCvColorImage()
         self.imageOut = NodeOutput("image")
         self.outputs = [self.imageOut]
         # atexit is a python module that allows us to run functions before a script
@@ -972,15 +973,16 @@ class SimpleKinect(Node):
         # to initialize: init(RGB image bool, IR image bool)
 
         if self.mode == 0: # RGB
-            self.vidGrabber.init(True, False)
+            self.vidGrabber.init()
         elif self.mode == 1: # IR
-            self.vidGrabber.init(False, True)
+            self.vidGrabber.init(True, False)
         else: # DEPTH
             self.vidGrabber.init(False, False)
 
         self.vidGrabber.setVerbose(True)
         self.vidGrabber.open()
         self.colorImg.allocate(640,480)
+        self.realColorImg.allocate(640, 480)
         self.imageOut.value = [self.colorImg, False]
     
     def compute(self):
@@ -989,14 +991,21 @@ class SimpleKinect(Node):
         if self.vidGrabber.isFrameNew():
             # we use getDepthPixels if the Depth option has been specified.
             if self.mode == 2:
-                self.colorImg.setFromPixels(self.vidGrabber.getDepthPixels(), 640,480)
+                self.colorImg.setFromPixels(self.vidGrabber.getDepthPixels(), 640, 480)
             # otherwise, getPixels will depend on the RGB and IR boolean values we initialized in setup()
+            elif self.mode == 0:
+                self.realColorImg.setFromPixels(self.vidGrabber.getPixels(), 640, 480)
+                # self.colorImg.setFromPixels(self.vidGrabber.getDistancePixels(), 640, 480)
             else:
-                self.colorImg.setFromPixels(self.vidGrabber.getPixels(), 640,480)
+                self.colorImg.setFromPixels(self.vidGrabber.getPixels(), 640, 480)
 
             if self.mirrorImage:
                 self.colorImg.mirror(0,1)
-            self.imageOut.value = [self.colorImg, True]
+
+            if self.mode == 0:
+                self.imageOut.value = [self.realColorImg, True]
+            else:
+                self.imageOut.value = [self.colorImg, True]
 
     def closeKinect(self):
         self.vidGrabber.close()
