@@ -389,6 +389,8 @@ class SaveBanner(gui.PSGObject):
         self.alpha = 0
         self.initialTime = time.time()
         self.x, self.y = ofGetWidth()/2 - self.img.getWidth()/2, ofGetHeight()/2 - self.img.getHeight()/2
+        self.w = self.img.getWidth()
+        self.h = self.img.getHeight()
 
     def draw(self):
         elapsedTime = time.time() - self.initialTime
@@ -403,6 +405,42 @@ class SaveBanner(gui.PSGObject):
             self.img.draw(self.x, self.y)
         else:
             gui.manager.objects.remove(self)
+
+class AboutWindow(gui.Button):
+    def __init__(self):
+        gui.Button.__init__(self)
+        self.img = ofImage()
+        self.img.loadImage("icons/ARIEL_about_shadow.png")
+        self.alpha = 0
+        self.initialTime = time.time()
+        self.x, self.y = ofGetWidth()/2 - self.img.getWidth()/2, ofGetHeight()/2 - self.img.getHeight()/2
+        self.fadingIn = True
+        self.fadingOut = False
+        self.callback = self.fadeOut
+
+    def draw(self):
+        if self.fadingIn:
+            elapsedTime = time.time() - self.initialTime
+            if elapsedTime < 1:
+                glColor4f(1, 1, 1, elapsedTime)
+                self.img.draw(self.x, self.y)
+            else:
+                self.fadingIn = False
+        else:
+            if self.fadingOut:
+                elapsedTime = time.time() - self.initialTime
+                if elapsedTime < 1:
+                    glColor4f(1, 1, 1, 1 - elapsedTime)
+                    self.img.draw(self.x, self.y)
+                else:
+                    gui.manager.objects.remove(self)
+            else:
+                glColor4f(1, 1, 1, 1)
+                self.img.draw(self.x, self.y)
+
+    def fadeOut(self):
+        self.fadingOut = True
+        self.initialTime = time.time()
 
 
 #------------------------------------------------------------
@@ -686,25 +724,27 @@ class ArielBuilder(ofBaseApp):
     
     def doAbout(self):
 
-        propertyWindow = gui.Window()
-        helpLabel = gui.Label(propertyWindow)
-        propertyWindow.w = 300
-        propertyWindow.h = 150
+        # propertyWindow = gui.Window()
+        # helpLabel = gui.Label(propertyWindow)
+        # propertyWindow.w = 300
+        # propertyWindow.h = 150
 
-        helpLabel.setMessage("ARIEL version 1.6, May 2012")
-        helpLabel.setPosition(25,10)
-        helpLabel._setW(280)
+        # helpLabel.setMessage("ARIEL version 1.6, May 2012")
+        # helpLabel.setPosition(25,10)
+        # helpLabel._setW(280)
 
-        propertyOkay = gui.Button(propertyWindow)
-        propertyOkay.setLabel("okay")
-        propertyOkay.callback = propertyWindow.hide
-        propertyOkay.showLabel = 1
-        propertyOkay.setColor((0.5,0.5,0.5))
-        propertyOkay.w = 50
-        propertyOkay.h = 25
-        propertyOkay.x = 239
-        propertyOkay.y = 110
-        propertyWindow.show()
+        # propertyOkay = gui.Button(propertyWindow)
+        # propertyOkay.setLabel("okay")
+        # propertyOkay.callback = propertyWindow.hide
+        # propertyOkay.showLabel = 1
+        # propertyOkay.setColor((0.5,0.5,0.5))
+        # propertyOkay.w = 50
+        # propertyOkay.h = 25
+        # propertyOkay.x = 239
+        # propertyOkay.y = 110
+        # propertyWindow.show()
+
+        AboutWindow()
     
     def doUndo(self):
         try:
