@@ -786,8 +786,10 @@ class ArielBuilder(ofBaseApp):
             newNode.x, newNode.y, newNode.w, newNode.h = layout
             #print newNode
             newNode.setParameterDict(params)
-            if isinstance(newNode, node.Container):
-                newNode.parseFile()
+
+            # if isinstance(newNode, node.Container):
+            #     newNode.parseFile()
+
             #print inputs,outputs
             for i in inputs+outputs:
                 index[i[1]] = (newNode,i[0])
@@ -854,6 +856,7 @@ class ArielBuilder(ofBaseApp):
         for o in gui.manager.objects:
             if isinstance(o, node.Container):
                 self.nodesFromContainer(o)
+                o.delete()
 
     def nodesFromContainer(self, o):
         nodeData, connectorData = o.nodeData, o.connectorData
@@ -892,19 +895,22 @@ class ArielBuilder(ofBaseApp):
 
             # if not isinstance(newNode, node.ContainerTitle) and not isinstance(newNode, node.ContainerInlet) and not isinstance(newNode, node.ContainerOutlet):
             #     listOfActualNodes.append(newNode)
-                
+
+        outlet_parents = []
         for conn in connectorData:
             f,t = conn
             fromNode, fromConn = index[f]
             toNode, toConn = index[t]
             fromConn = fromNode.getOutputByName(fromConn)
-            #print "looking for",toConn,"in",toNode
             toConn = toNode.getInputByName(toConn)
-            #print "connections",fromConn,toConn
+            # save the outputs that are connecting to the ContainerOutlets for later
+            for out in outlets:
+                if out.inputs[0] == toConn:
+                    outlet_parents.append(fromConn)
             fromConn.connect(toConn)
 
         # now we have to switch the container's existing connections to the
-        # nodes that will be replacing it. 
+        # nodes that will be replacing it.
         
         for i, inputObject in enumerate(o.inputs):
             # parentOutput is the output currently connected to the container's input (inputObject)
@@ -918,12 +924,14 @@ class ArielBuilder(ofBaseApp):
             if newInputToConnectTo != None and parentOutput != None:
                 parentOutput.connect(newInputToConnectTo)
 
+        outlet_parents.reverse()
         for i, outputObject in enumerate(o.outputs):
             # destination is the input that we'll be patching into
             destination = outputObject.connection
-            print "destination = outputObject.connection; type =", outputObject.connection
-            parentOutput = outlets[i].inputs[0].getParent()
-            print "outlets[i].inputs[0].getParent() =", parentOutput
+            # print "destination = outputObject.connection; type =", outputObject.connection
+            # parentOutput = outlets[i].inputs[0].getParent()
+            parentOutput = outlet_parents[i]
+            # print "outlets[i].inputs[0].getParent() =", parentOutput
             if parentOutput != None and destination != None:
                 parentOutput.disconnect()
                 parentOutput.connect(destination)
@@ -934,7 +942,7 @@ class ArielBuilder(ofBaseApp):
         for out in outlets:
             out.delete()
         # delete the container node
-        o.delete()
+        # o.delete()
         # print "list of nodes:", listOfActualNodes
         # here we insert the list of all the newly created nodes at container_index,
         # keeping them synced with the Order Edit Mode settings
