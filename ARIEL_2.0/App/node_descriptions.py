@@ -1,3 +1,25 @@
+"""
+ARIEL Builder is a visual language for prototyping augmented reality interactive software.
+It is licensed with a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+It makes use of OpenFrameworks, distributed under the MIT License.
+
+Direct questions, comments, and bugs to kstetz@fi.edu
+
+The Franklin Institute
+Philadelphia, Pennsylvania, USA
+www.fi.edu/ariel
+Lead Programmer: Kyle Stetz
+ 
+Patten Studio
+Brooklyn, New York, USA
+www.pattenstudio.com
+Lead Programmer: James Patten
+
+The ARIEL project received support from the National Science Foundation under Grant No. 0741659.
+Any opinions, findings, and conclusions or recommendations expressed in this material are those
+of the author(s) and do not necessarily reflect the views of the National Science Foundation.
+"""
+
 d = {}
 
 def get(label):
@@ -8,11 +30,11 @@ def get(label):
 
 d["to be named"] = "No information to display."
 # sensors
-d["camera"] = "Camera grabs a webcam image and performs blob tracking and glyph tracking on it."
-d["simple camera"] = "Simple Camera grabs an image from a webcam."
-d["kinect"] = "Kinect grabs an XBox Kinect image and performs blob tracking and glyph tracking on it."
-d["simple kinect"] = "Simple Kinect, used for grabbing an image from an XBox Kinect."
-d["firmata"] = "Firmata serial connection. Use Arduino node instead!"
+d["camera"] = "Camera grabs a webcam image."
+# d["simple camera"] = "Simple Camera grabs an image from a webcam."
+d["kinect"] = "Kinect grabs an XBox Kinect image."
+# d["simple kinect"] = "Simple Kinect, used for grabbing an image from an XBox Kinect."
+# d["firmata"] = "Firmata serial connection. Use Arduino node instead!"
 d["mouse input"] = "Mouse Input provides the mouse position and status of both mouse buttons."
 d["key input"] = "Key Input sends the ASCII (number) value of a key when it is pressed."
 d["gui button"] = "GUI Button provides an on-screen button within your ARIEL sketch."
@@ -44,18 +66,18 @@ d["button"] = "Button Sends a single 1 for each series of 1s it receives."
 d["toggle"] = "Toggle switches its output between 1 and 0 each time it receives a 1 as an input."
 d["gate"] = "Gate sends one of two inputs through its output based on the value of the control input."
 d["mono selector"] = "Mono Selector sends a continuous 1 to the output specified by the control input."
+d["combiner"] = "Combiner continuously sends the last value it receives."
 d["button delay"] = "Button Delay pauses a signal for a specified amount of time."
 # generalNodes
 d["splitter"] = "Splitter duplicates its input to four different outputs."
-d["combiner"] = "Combiner continuously sends the last value it receives."
 d["play sound"] = "Play Sound loads a sound file and plays it whenever it is sent a 1. Volume is set to 1 by default."
 d["startup"] = "Startup sends a single 1 when the sketch starts running."
 d["delay"] = "Delay pauses a signal once for a specified amount of time when the sketch starts running."
 d["print"] = "Print displays the input in the Terminal window each frame. Print nodes can be named to differentiate between several of them."
 d["collision"] = "Collision looks at two sets of polygons to see if they overlap."
 d["velocity"] = "Velocity calculates the velocity of x and y inputs, though these inputs do not necessarily need to be coordinates."
-d["OSC receive"] = "OSC Receive listens for OSC messages to localhost (127.0.0.1) port 12000."
-d["OSC send"] = "OSC Send transmits OSC messages over the localhost (127.0.0.1) port 12001."
+d["OSC receive"] = "OSC Receive listens for tagged OSC messages at the specified host and port number."
+d["OSC send"] = "OSC Send transmits tagged OSC messages over a specified host and port number."
 d["OSC filter"] = "OSC Filter grabs the specified index of an incoming OSC message."
 # container nodes
 d["container"] = "Container loads a .ariel file as a node, including inputs and outputs if they were specified."

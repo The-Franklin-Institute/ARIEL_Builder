@@ -2,3 +2,9 @@
 .DS_Store
 
 *.pyc
+
+ARIEL_2.0/App/scene.ariel
+
+ARIEL_2.0/App/scene_with_container.ariel
+
+ARIEL_2.0/App/node.pyc
