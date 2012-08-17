@@ -1020,7 +1020,7 @@ class ArielBuilder(ofBaseApp):
         f.write(data)
         f.close()
         if fname != "scene.ariel":
-            print "graph saved to", fname
+            print "sketch saved to", fname
         # save filename for later, update title of window to reflect last saved name
         self.lastFilename = fname
         ofSetWindowTitle(self.lastFilename)
@@ -1049,7 +1049,7 @@ class ArielBuilder(ofBaseApp):
         f = open(fname,"w")
         f.write(data)
         f.close()
-        print "graph saved to", fname
+        print "sketch saved to", fname
         self.lastFilename = fname
         ofSetWindowTitle(self.lastFilename)
         self.didSave = True

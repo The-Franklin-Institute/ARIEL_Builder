@@ -2297,7 +2297,7 @@ class ExpressionBuilder(Node):
         l.setPosition(10,62)
         l._setW(357)
         
-        self.valueWidget = gui.InteractiveTextfield(self.propertyWindow)
+        self.valueWidget = gui.TextEntry(self.propertyWindow)
         self.valueWidget.w = 250
         self.valueWidget.currentText = "a+b"
         self.valueWidget.setPosition(10, 32)
@@ -3234,7 +3234,7 @@ class TimeGraph(Node):
     def __init__(self):
         Node.__init__(self)
         self.label = "time graph"
-        self.tooltop = node_descriptions.get(self.label)
+        self.tooltip = node_descriptions.get(self.label)
         self.icon.loadImage("icons/timegraph.png")
 
         self.addInput(NumberInput(self, "x"))
@@ -3337,7 +3337,7 @@ class Vector2D(Node):
     def __init__(self):
         Node.__init__(self)
         self.label = "vector 2d"
-        self.tooltop = node_descriptions.get(self.label)
+        self.tooltip = node_descriptions.get(self.label)
         # self.icon.loadImage("icons/vec2d.png")
 
         self.addInput(NumberInput(self, "x"))

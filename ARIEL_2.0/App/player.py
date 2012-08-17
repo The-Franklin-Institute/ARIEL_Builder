@@ -2205,7 +2205,8 @@ class PrintInput(Node):
         if self.input.value != None:
             print self.name,"says:",self.input.value
         else:
-            print self.name,"says: not getting any data at the moment."
+            # print self.name,"says: not getting any data at the moment."
+            pass
         self.output.value = self.input.value
 
 
