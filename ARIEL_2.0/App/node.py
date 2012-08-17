@@ -383,7 +383,7 @@ class Node(gui.Button):
             glPopMatrix()
 
         if gui.manager.alignTool and self.mouseState == gui.MouseState.MOUSE_DRAGGING_US:
-            ofSetColor(0, 100, 255)
+            apply(ofSetColor, color_pallet.align_tool)
             ofLine(0, self.y, ofGetWidth(), self.y)
             ofLine(self.x, 0, self.x, ofGetHeight())
 
@@ -1313,7 +1313,7 @@ class Conditional(Node):
             self.deleteButton.draw()
             glPopMatrix()
         if gui.manager.alignTool and self.mouseState == gui.MouseState.MOUSE_DRAGGING_US:
-            ofSetColor(0, 100, 255)
+            apply(ofSetColor, color_pallet.align_tool)
             ofLine(0, self.y, ofGetWidth(), self.y)
             ofLine(self.x, 0, self.x, ofGetHeight())
     
@@ -1428,7 +1428,7 @@ class Mathematics(Node):
             self.deleteButton.draw()
             glPopMatrix()
         if gui.manager.alignTool and self.mouseState == gui.MouseState.MOUSE_DRAGGING_US:
-            ofSetColor(0, 100, 255)
+            apply(ofSetColor, color_pallet.align_tool)
             ofLine(0, self.y, ofGetWidth(), self.y)
             ofLine(self.x, 0, self.x, ofGetHeight())
 	
@@ -2264,7 +2264,7 @@ class Arduino(Node):
             self.deleteButton.draw()
             glPopMatrix()
         if gui.manager.alignTool and self.mouseState == gui.MouseState.MOUSE_DRAGGING_US:
-            ofSetColor(0, 100, 255)
+            apply(ofSetColor, color_pallet.align_tool)
             ofLine(0, self.y, ofGetWidth(), self.y)
             ofLine(self.x, 0, self.x, ofGetHeight())
 
@@ -2417,7 +2417,7 @@ class VariableGetter(Node):
             self.deleteButton.draw()
             glPopMatrix()
         if gui.manager.alignTool and self.mouseState == gui.MouseState.MOUSE_DRAGGING_US:
-            ofSetColor(0, 100, 255)
+            apply(ofSetColor, color_pallet.align_tool)
             ofLine(0, self.y, ofGetWidth(), self.y)
             ofLine(self.x, 0, self.x, ofGetHeight())
 
@@ -2506,7 +2506,7 @@ class VariableSetter(Node):
             self.deleteButton.draw()
             glPopMatrix()
         if gui.manager.alignTool and self.mouseState == gui.MouseState.MOUSE_DRAGGING_US:
-            ofSetColor(0, 100, 255)
+            apply(ofSetColor, color_pallet.align_tool)
             ofLine(0, self.y, ofGetWidth(), self.y)
             ofLine(self.x, 0, self.x, ofGetHeight())
 
@@ -3001,7 +3001,7 @@ class Container(Node):
             self.deleteButton.draw()
             glPopMatrix()
         if gui.manager.alignTool and self.mouseState == gui.MouseState.MOUSE_DRAGGING_US:
-            ofSetColor(0, 100, 255)
+            apply(ofSetColor, color_pallet.align_tool)
             ofLine(0, self.y, ofGetWidth(), self.y)
             ofLine(self.x, 0, self.x, ofGetHeight())
 

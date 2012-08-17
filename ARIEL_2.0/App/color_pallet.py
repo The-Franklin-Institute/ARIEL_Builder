@@ -33,27 +33,25 @@ def byteColor(c):
 
 # NODE INPUTS AND OUTPUTS
 
+# dark blue
 default_output = floatColor(59, 82, 97)
 default_input = floatColor(12, 41, 53)
-# default_output = (1.0, 0.38, 0.22)
-# default_input = (0.3, 0.3, 0.3)
 
+# light blue
 number_output = floatColor(50, 157, 164)
 number_input = floatColor(0, 88, 101)
-# number_output = (0.0, 0.64, 0.53)
-# number_input = (0.14, 0.31, 0.28)
 
+# red
 image_output = floatColor(201, 112, 94)
 image_input = floatColor(177, 38, 42)
-# image_output = (0.55, 0.76, 0.48)
-# image_input = (0.45, 0.66, 0.38)
 
-# node_output_highlight = floatColor(212, 77, 77)
+# the circle that fades in when you hover over an arrow
 node_output_highlight = floatColor(98, 98, 98)
 
 
 # GENERAL NODERY
 
+# text color for most labels
 node_box_text = (0.3, 0.3, 0.3)
 
 node_box_bg = (0.6, 0.6, 0.6)
@@ -61,16 +59,19 @@ node_box_outline = (0, 0, 0)
 
 node_box_bg_highlight = (0.6, 0.6, 0.6)
 
+# top to bottom gradient for node highlight (currently red)
 node_box_outline_highlight_top = floatColor(212, 77, 77)
-
 node_box_outline_highlight_bottom = floatColor(212, 77, 77, 128)
 
+# top to bottom gradient for node
 node_top = (0.6, 0.6, 0.6)
 node_bottom = (0.3, 0.3, 0.3)
 
+align_tool = (50, 157, 164)
+
 
 # ENVIRONMENT
-# 
+
 background = (0.9, 0.9, 0.9)
 text_highlight = (0.7, 1, 1, 0.3)
 
@@ -85,16 +86,16 @@ tool_pallet_bg = (0.8, 0.8, 0.8)
 tool_pallet_shapes = (0.4, 0.4, 0.4)
 tool_pallet_title = (0.2, 0.2, 0.2)
 
+# property drawer background
 property_drawer = (0.6, 0.6, 0.6)
 
-drawer_button_top = (0.8, 0.8, 0.8)
-drawer_button_bottom = (0.6, 0.6, 0.6)
-
+# open/close button of property drawer
 drawer_button_top = (0.6, 0.6, 0.6)
 drawer_button_bottom = (0.6, 0.6, 0.6)
 drawer_button_top_hover = (0.6, 0.6, 0.6)
 drawer_button_bottom_hover = (0.7, 0.7, 0.7)
 
+# highlight for drop-down menus
 selection_highlight = floatColor(212, 77, 77, 200)
 
 button_highlight = (0.7, 0.7, 0.7)
