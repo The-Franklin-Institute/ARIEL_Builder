@@ -1,0 +1,53 @@
+((lp1
+(S'<class node.MouseInput at 0x24986450>'
+(l(lp2
+(S'Mouse X'
+p3
+I617928904
+tp4
+a(S'Mouse Y'
+p5
+I617927624
+tp6
+a(S'Left Click'
+p7
+I617930064
+tp8
+a(S'Right Click'
+p9
+I614030352
+tp10
+a(d(I576
+I275
+I100
+I43
+ttp11
+a(S'<class node.DrawCode at 0x24986600>'
+(lp12
+(S'in1'
+p13
+I614110112
+tp14
+a(S'in2'
+p15
+I614112152
+tp16
+a(l(dp17
+S'expression'
+p18
+S'ofBackground(in1/4, in2/3, 100)'
+p19
+s(I605
+I403
+I50
+I43
+ttp20
+a(lp21
+(I617928904
+I614110112
+tp22
+a(I617927624
+I614112152
+tp23
+atp24
+.

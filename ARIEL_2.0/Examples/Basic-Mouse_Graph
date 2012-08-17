@@ -1,0 +1,109 @@
+((lp1
+(S'<class node.TimeGraph at 0x24986840>'
+(lp2
+(S'x'
+I614426904
+tp3
+a(S'y'
+I614427144
+tp4
+a(S'x increment'
+p5
+I614427664
+tp6
+a(S'y increment'
+p7
+I614428064
+tp8
+a(l(dp9
+S'graph_width'
+p10
+F1024
+sS'hex_color'
+p11
+S'FFFFFF'
+p12
+sS'graph_height'
+p13
+F768
+sS'x_pos'
+p14
+F0
+sS'y_pos'
+p15
+F0
+s(I603
+I448
+I100
+I43
+ttp16
+a(S'<class node.MouseInput at 0x24986450>'
+(l(lp17
+(S'Mouse X'
+p18
+I614310216
+tp19
+a(S'Mouse Y'
+p20
+I614311816
+tp21
+a(S'Left Click'
+p22
+I614085456
+tp23
+a(S'Right Click'
+p24
+I614088336
+tp25
+a(d(I604
+I203
+I100
+I43
+ttp26
+a(S'<class node.Parameter at 0x24983fc0>'
+(lp27
+(S'value'
+p28
+I614390880
+tp29
+a(lp30
+(g28
+I614391520
+tp31
+a(dp32
+g28
+F1
+s(I754
+I306
+I43
+I43
+ttp33
+a(S'<class node.Parameter at 0x24983fc0>'
+(lp34
+(g28
+I7376768
+tp35
+a(lp36
+(g28
+I614423888
+tp37
+a(dp38
+g28
+F0
+s(I483
+I303
+I43
+I43
+ttp39
+a(lp40
+(I614311816
+I614427144
+tp41
+a(I614391520
+I614427664
+tp42
+a(I614423888
+I614426904
+tp43
+atp44
+.
