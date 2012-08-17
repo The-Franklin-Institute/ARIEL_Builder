@@ -407,40 +407,23 @@ class SaveBanner(gui.PSGObject):
             gui.manager.objects.remove(self)
 
 class AboutWindow(gui.Button):
-    def __init__(self):
+    def __init__(self, close_callback):
         gui.Button.__init__(self)
         self.img = ofImage()
-        self.img.loadImage("icons/ARIEL_about_shadow.png")
-        self.alpha = 0
-        self.initialTime = time.time()
+        self.img.loadImage("icons/ARIEL_about.png")
         self.x, self.y = ofGetWidth()/2 - self.img.getWidth()/2, ofGetHeight()/2 - self.img.getHeight()/2
-        self.fadingIn = True
-        self.fadingOut = False
-        self.callback = self.fadeOut
+        self.w = self.img.getWidth()
+        self.h = self.img.getHeight()
+        self.downCallback = self.goAway
+        self.closeCallback = close_callback
 
     def draw(self):
-        if self.fadingIn:
-            elapsedTime = time.time() - self.initialTime
-            if elapsedTime < 1:
-                glColor4f(1, 1, 1, elapsedTime)
-                self.img.draw(self.x, self.y)
-            else:
-                self.fadingIn = False
-        else:
-            if self.fadingOut:
-                elapsedTime = time.time() - self.initialTime
-                if elapsedTime < 1:
-                    glColor4f(1, 1, 1, 1 - elapsedTime)
-                    self.img.draw(self.x, self.y)
-                else:
-                    gui.manager.objects.remove(self)
-            else:
-                glColor4f(1, 1, 1, 1)
-                self.img.draw(self.x, self.y)
+        glColor3f(1, 1, 1)
+        self.img.draw(self.x, self.y)
 
-    def fadeOut(self):
-        self.fadingOut = True
-        self.initialTime = time.time()
+    def goAway(self):
+        self.closeCallback()
+        gui.manager.objects.remove(self)
 
 
 #------------------------------------------------------------
@@ -721,6 +704,8 @@ class ArielBuilder(ofBaseApp):
         self.tagController = None
 
         gui.manager.createPropertyDrawer()
+
+        self.aboutWindowIsShowing = False
     
     def doAbout(self):
 
@@ -743,8 +728,13 @@ class ArielBuilder(ofBaseApp):
         # propertyOkay.x = 239
         # propertyOkay.y = 110
         # propertyWindow.show()
+        if self.aboutWindowIsShowing == False:
+            AboutWindow(self.aboutWindowClose)
+            self.aboutWindowIsShowing = True
 
-        AboutWindow()
+    def aboutWindowClose(self):
+        self.aboutWindowIsShowing = False
+
     
     def doUndo(self):
         try:
