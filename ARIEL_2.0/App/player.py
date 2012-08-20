@@ -2914,7 +2914,8 @@ if runfullscreen:
     import commands
     ans = commands.getoutput("""osascript -e 'tell application \"Finder\" to get bounds of window of desktop' """)
     fields = string.splitfields(ans,",")
-    print "ANS",ans,string.atoi(fields[-2]),string.atoi(fields[-1])
+    # print "ANS",ans,string.atoi(fields[-2]),string.atoi(fields[-1])
+    print "---- Fullscreen mode:", str(fields[-2]) + " x" + str(fields[-1])
     util.setupWindow(string.atoi(fields[-2]),string.atoi(fields[-1]), OF_FULLSCREEN)
 #    ofSetupOpenGL(2560,1600, OF_FULLSCREEN)
 else:
