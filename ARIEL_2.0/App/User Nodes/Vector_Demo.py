@@ -7,10 +7,10 @@ from arielplugin import *
 import arieltypes
 
 #Multiplier is the name of our node
-class VectorTest(Node):
+class VectorDemo(Node):
 
     #This is the label for our node in the builder"
-    ARIELCLASS = "vector test"
+    ARIELCLASS = "Vector Demo"
 
     def __init__(self):
         Node.__init__(self)

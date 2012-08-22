@@ -13,7 +13,7 @@ from openframeworks import *
 class MatrixDemo(Node):
 
     #This is the label for our node in the builder"
-    ARIELCLASS = "matrix demo"
+    ARIELCLASS = "Matrix Demo"
 
     def __init__(self):
         Node.__init__(self)

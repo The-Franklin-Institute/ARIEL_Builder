@@ -5,10 +5,10 @@ from arielplugin import *
 import arieltypes
 
 #Multiplier is the name of our node
-class ScalarTest(Node):
+class ScalarDemo(Node):
 
     #This is the label for our node in the builder"
-    ARIELCLASS = "scalar test"
+    ARIELCLASS = "Scalar Demo"
 
     def __init__(self):
         Node.__init__(self)
