@@ -402,7 +402,7 @@ class GlyphFilter(Node):
                 self.rout.value = artk.get2Drotation(i)
                 self.present.value = 1
                 self.matrix.value = (i,artk)
-                print "set matrix",self.matrix.value
+                # print "set matrix",self.matrix.value
     
 
 class Camera(Node):
@@ -1058,7 +1058,7 @@ class ColladaAnimation(Node):
             
             self.normScale = self.model.getNormalizedScale()
             self.scale = self.model.getScale()
-            print self.scale,"SCALE"
+            # print self.scale,"SCALE"
             self.sceneCenter = self.model.getSceneCenter()
             self.material = self.model.getMaterialForMesh(0)
             self.tex = self.model.getTextureForMesh(0)
@@ -1077,8 +1077,8 @@ class ColladaAnimation(Node):
         # self.drawingOrder.value = 10
         
         self.bAnimate		= 0
-    	self.bAnimateMouse 	= 0
-        self.animationTime	= 0.0;
+    	self.bAnimateMouse 	= 1
+        self.animationTime	= 0.0
         #ofEnableArbTex()
         
         print "DEPTH",glIsEnabled(GL_DEPTH_TEST)
@@ -1141,10 +1141,12 @@ class ColladaAnimation(Node):
 
             if self.matrix.value:
                 glViewport(0,0,ofGetWidth(),ofGetHeight())
+                # glViewport(0,0,640,480)
                 artk = self.matrix.value[1]
                 glMatrixMode(GL_PROJECTION)
                 glPushMatrix()
                 artk.applyProjectionMatrix(ofGetWidth(), ofGetHeight())
+                # artk.applyProjectionMatrix(640, 480)
                 glMatrixMode( GL_MODELVIEW )
                 glPushMatrix()
                 glLoadIdentity()
@@ -1342,6 +1344,7 @@ class Image(Node):
             glLoadIdentity()
             artk.applyModelMatrix(self.matrix.value[0])
             glScalef(self.s.value, self.s.value, 1)
+            # self.image.mirror(0, 1)
             #DRAW here
 
             if self.t.value != 1:
@@ -1350,7 +1353,10 @@ class Image(Node):
                 glColor3f(1,1,1)
             ofEnableAlphaBlending()
             if self.mask.value == None:
-                self.image.draw(0, 0)
+                if self.anchor == 0:
+                    self.image.draw(0, 0, self.image.getWidth(), -self.image.getHeight())
+                else:
+                    self.image.draw(-self.image.getWidth()*0.5, self.image.getHeight()*0.5, self.image.getWidth(), -self.image.getHeight())
             else:
                 for n in range(len(self.mask.value[0])):
                     self.colorCameraImg[n].draw(self.image.getWidth() * -0.5, self.image.getHeight() * -0.5)
@@ -2863,7 +2869,8 @@ class ArielApp(ofBaseApp):
         #     self.nodes.sort()
     
     def draw(self):
-        ofSetupScreenPerspective(0, 0, OF_ORIENTATION_UNKNOWN, 1, 60, 0, 0)
+        # ofSetupScreenPerspective(0, 0, OF_ORIENTATION_UNKNOWN, 1, 60, 0, 0)
+        ofSetupScreenPerspective(ofGetWidth(), ofGetHeight(), OF_ORIENTATION_UNKNOWN, 1, 60, 0, 0)
         ofBackground(0,0,0)
         for n in self.nodes:
             n.draw()
