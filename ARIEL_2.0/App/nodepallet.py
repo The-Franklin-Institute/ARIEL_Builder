@@ -40,6 +40,7 @@ labelsToNodes["blob filter"] = node.BlobFilter
 labelsToNodes["glyph tracking"] = node.GlyphTracking
 labelsToNodes["glyph filter"] =  node.GlyphFilter
 labelsToNodes["bg differencing"] = node.BackgroundDifferencing
+labelsToNodes["find color"] = node.FindColor
 # display
 labelsToNodes["video"] =  node.Video
 labelsToNodes["simulator data"] = node.DataDisplay
@@ -123,6 +124,7 @@ trackingNodes.append(("blob filter", "icons/filter.png", x, y))
 trackingNodes.append(("glyph tracking", "icons/glyph.png", x, y))
 trackingNodes.append(("glyph filter","icons/filter.png", x, y))
 trackingNodes.append(("bg differencing", "icons/bgdif.png", x, y))
+trackingNodes.append(("find color", "icons/bgdif.png", x, y))
 #
 displayNodes.append(("image", "icons/image.png", x, y))
 displayNodes.append(("image mask", "icons/imagemask.png", x, y))

@@ -33,6 +33,9 @@ import colorsys
 import wavelen2rgb
 import simpleOSC
 import atexit
+import numpy
+import color_space_conversion as cspace
+# import scipy
 from operator import itemgetter
 
 from arieltypes import Vector
@@ -2679,6 +2682,104 @@ class Vector2D(Node):
             glEnd()
 
             glPopMatrix()
+
+
+class FindColor(Node):
+    def __init__(self):
+        Node.__init__(self)
+        # from numpy import *
+
+        self.imageIn = NodeInput("image")
+        self.imageOut = NodeOutput("modified image")
+        self.inputs = [self.imageIn]
+        self.outputs = [self.imageOut]
+
+        # self.tx = glGenTextures(1, self.names)
+
+        self.pixels = []
+        self.finalImage = ofImage()
+
+        self.vAbove = numpy.vectorize(self.above)
+        self.vBetween = numpy.vectorize(self.between)
+        self.vBothChannels = numpy.vectorize(self.bothChannels)
+
+        self.cvImg = ofxCvColorImage()
+
+        self.w, self.h = 160, 120
+
+    def setup(self):
+        self.cvImg.allocate(640, 480)
+
+    def draw(self):
+        ms = time.time()
+        # Crazy algorithm.
+        # get image input, draw it to the screen
+        # glReadPixelsf the image to an array
+        # draw a black box over the image
+        # loop through array to do color reading
+        # push new array to ofTexture
+
+        # self.imageIn.value[0].draw(0, ofGetHeight() - 480)
+        # self.pixels = glReadPixelsf(0, 0, 640, 480, GL_RGB)
+
+        self.imageIn.value[0].draw(0, ofGetHeight() - self.h, self.w, self.h)
+        self.pixels = glReadPixelsf(0, 0, self.w, self.h, GL_RGB)
+
+        a = numpy.array(self.pixels)
+        # a[:, :, 0] = 0
+        
+        hsv_array = cspace.rgb2hsv(a)
+        hue = hsv_array[:, :, 0]
+        saturation = hsv_array[:, :, 1]
+        hue = self.vBetween(hue, 0.2, 0.9)
+        saturation = self.vAbove(saturation, 0.5)
+
+        h_and_s = numpy.zeros((self.w, self.h, 3))
+        h_and_s[:, :, 0] = hue
+        h_and_s[:, :, 1] = saturation
+
+        final = numpy.zeros((self.w, self.h, 3))
+
+        # dual = h_and_s[:, :, 0] == h_and_s[:, :, 1]
+        # dual = dual.astype(int)
+        # print dual[0]
+        # final[:, :, 0] = dual.astype(float)
+
+        dual = self.vBothChannels(h_and_s[:, :, 0], h_and_s[:, :, 1])
+        final[:, :, 0] = final[:, :, 1] = final[:, :, 2] = dual
+        
+        glDrawPixelsf(GL_RGB, final)
+
+        self.finalImage.grabScreen(0, ofGetHeight()-self.h, self.w, self.h)
+        self.finalImage.resize(640, 480)
+        # self.finalImage.draw(self.w, 0)
+        
+        self.cvImg.setFromPixels(self.finalImage.getPixels(), 640, 480)
+        self.imageOut.value = [self.cvImg, True]
+
+        glColor3f(0, 0, 0)
+        glRectf(0, ofGetHeight()-self.h, self.w, ofGetHeight())
+        glColor3f(1, 1, 1)
+
+        print time.time()-ms
+
+    def above(self, number, low):
+        # print "numarray came in as:",numarray
+        if number > low:
+            return 1
+        return 0
+
+    def between(self, number, low, high):
+        if number < low or number > high:
+            return 1
+        return 0
+
+    def bothChannels(self, c1, c2):
+        if c1 == c2 and c1 == 1:
+            return 1
+        return 0
+
+
 
 activeNodes = []
 

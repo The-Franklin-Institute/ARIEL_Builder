@@ -3350,4 +3350,17 @@ class Vector2D(Node):
 
         self.doSimplePropertyWindow("Outputs the angle and magnitude of a given 2d velocity.")
         self.placePropertyOkay()
+
+class FindColor(Node):
+
+    def __init__(self):
+        Node.__init__(self)
+        self.label = "find color"
+        self.tooltip = node_descriptions.get(self.label)
+
+        self.addInput(ImageInput(self, "image"))
+        self.addOutput(ImageOutput(self, "modified image"))
+
+        self.doSimplePropertyWindow("")
+        
         
