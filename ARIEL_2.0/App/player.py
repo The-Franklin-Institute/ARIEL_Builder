@@ -2696,16 +2696,7 @@ class FindColor(Node):
         self.pixels = []
         self.finalImage = ofImage()
 
-        # numpy.vectorize() takes a regular function and returns a new function.
-        # the new vectorized function accepts a numpy array and automatically loops
-        # through it by element, returning the modified numpy array.
-
-        # i.e. vectorized_function = numpy.vectorize(old_function)
-        # new_array = vectorized_function(old_array)
-
-        self.vAbove = numpy.vectorize(self.above)
-        self.vBetween = numpy.vectorize(self.between)
-        self.vBothChannels = numpy.vectorize(self.bothChannels)
+        self.low, self.high = 0.9, 0.2
 
         self.cvImg = ofxCvColorImage()
 
@@ -2713,6 +2704,24 @@ class FindColor(Node):
 
     def setup(self):
         self.cvImg.allocate(640, 480)
+
+        # numpy.vectorize() takes a regular function and returns a new function.
+        # the new vectorized function accepts a numpy array and automatically loops
+        # through it by element, returning the modified numpy array.
+
+        # i.e. vectorized_function = numpy.vectorize(old_function)
+        #      new_array = vectorized_function(old_array)
+
+        self.vAbove = numpy.vectorize(self.above)
+        self.vBothChannels = numpy.vectorize(self.bothChannels)
+
+        # there are two different possibilities for the vBetween algorithm, depending on
+        # whether or not the incoming value has the potential to sweep across the 0 point of the hue circle
+        self.vBetween = None
+        if self.low <= self.high:
+            self.vBetween = numpy.vectorize(self.betweenNoSweep)
+        else:
+            self.vBetween = numpy.vectorize(self.betweenWithSweep)
 
     def draw(self):
         # ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -2749,8 +2758,12 @@ class FindColor(Node):
 
         # make hue and saturation arrays from the H and S columns of the hsv_array, running them
         # through the vBetween and vAbove thresholding filters as they are created
+        # if self.low <= self.high:
+        #     hue = self.vBetweenNoSweep(hsv_array[:, :, 0], self.low, self.high)
+        # else:
+        #     hue = self.vBetweenWithSweep(hsv_array[:, :, 0], self.low, self.high)
         hue = self.vBetween(hsv_array[:, :, 0], 0.2, 0.9)
-        saturation = self.vAbove(hsv_array[:, :, 1], 0.5)
+        saturation = self.vAbove(hsv_array[:, :, 1], 0.6)
 
         # compare the hue and saturation channels, making a 1 only if both channels contain a 1
         dual = self.vBothChannels(hue, saturation)
@@ -2785,8 +2798,13 @@ class FindColor(Node):
             return 1
         return 0
 
-    def between(self, number, low, high):
-        if number < low or number > high:
+    def betweenNoSweep(self, number, low, high):
+        if number >= low and number <= high:
+            return 1
+        return 0
+
+    def betweenWithSweep(self, number, low, high):
+        if number >= low or number <= high:
             return 1
         return 0
 

@@ -3361,6 +3361,47 @@ class FindColor(Node):
         self.addInput(ImageInput(self, "image"))
         self.addOutput(ImageOutput(self, "modified image"))
 
-        self.doSimplePropertyWindow("")
+        l = gui.Label(self.propertyWindow)
+        l.font = fontmanager.manager.getFont("Frutiger-Bold.ttf",14)
+        l.setMessage("find color")
+        l.setPosition(10, 0)
+        l._setW(300)
+
+        # hue range
+        self.low = gui.TextEntry(self.propertyWindow)
+        self.low.setPosition(10, 60)
+        self.low.w = 60
+        self.low.currentText = "0.9"
+        self.low.validateAsNumber()
+
+        self.high = gui.TextEntry(self.propertyWindow)
+        self.high.setPosition(103, 60)
+        self.high.w = 60
+        self.high.currentText = "0.2"
+        self.high.validateAsNumber()
+
+        l = gui.Label(self.propertyWindow)
+        l.font = fontmanager.manager.getFont("Frutiger-Roman.ttf",10)
+        l.setMessage("hue range: low to high")
+        l.setPosition(10,32)
+        l._setW(200)
+
+        l = gui.Label(self.propertyWindow)
+        l.font = fontmanager.manager.getFont("Frutiger-Roman.ttf",10)
+        l.setMessage("-->")
+        l.setPosition(78,52)
         
-        
+    
+    def setParameterDict(self, d):
+        try:
+            Node.setParameterDict(self, d)
+            self.low.currentText = `d["low"]`
+            self.y_pos.currentText = `d["high"]`
+        except KeyError:
+            print self.label,"had a backwards compatibility issue. Check to make sure all the parameters are correct."
+
+    def getParameterDict(self):
+        d = Node.getParameterDict(self)
+        d["low"] = float(self.low.currentText)
+        d["high"] = float(self.high.currentText)
+        return d
