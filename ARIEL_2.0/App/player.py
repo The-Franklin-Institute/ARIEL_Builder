@@ -2687,17 +2687,21 @@ class Vector2D(Node):
 class FindColor(Node):
     def __init__(self):
         Node.__init__(self)
-        # from numpy import *
 
         self.imageIn = NodeInput("image")
         self.imageOut = NodeOutput("modified image")
         self.inputs = [self.imageIn]
         self.outputs = [self.imageOut]
 
-        # self.tx = glGenTextures(1, self.names)
-
         self.pixels = []
         self.finalImage = ofImage()
+
+        # numpy.vectorize() takes a regular function and returns a new function.
+        # the new vectorized function accepts a numpy array and automatically loops
+        # through it by element, returning the modified numpy array.
+
+        # i.e. vectorized_function = numpy.vectorize(old_function)
+        # new_array = vectorized_function(old_array)
 
         self.vAbove = numpy.vectorize(self.above)
         self.vBetween = numpy.vectorize(self.between)
@@ -2711,60 +2715,72 @@ class FindColor(Node):
         self.cvImg.allocate(640, 480)
 
     def draw(self):
-        ms = time.time()
-        # Crazy algorithm.
-        # get image input, draw it to the screen
-        # glReadPixelsf the image to an array
-        # draw a black box over the image
-        # loop through array to do color reading
-        # push new array to ofTexture
+        # ---------------------------------------------------------------------------------------------------------------------------------------------
+        # This algorithm is an awfully-hacked-together work around,
+        # since pixels in an ofImage cannot be directly accessed at the moment.
+        # The steps are as follows:
 
-        # self.imageIn.value[0].draw(0, ofGetHeight() - 480)
-        # self.pixels = glReadPixelsf(0, 0, 640, 480, GL_RGB)
+        # -- draw the incoming image to the screen
+        # -- use openGL's glReadPixelsf to grab the image from the screen into a numpy array of pixels
 
+        # -- convert the RGB colorspace into Hue Saturation Value using cspace.rgb2hsv()
+
+        # -- create hue array: loop through hue channel of the hsv_array using self.vBetween to return an array of only 1s and 0s that meet a threshold
+        # -- create saturation array: repeat for saturation channel of hsv_array using self.vAbove
+
+        # -- create a 'combined' array based on the the overlap of hue and saturation ( using the function self.vBothChannels() )
+        # -- create a final array and fill all three channels with the value from the combined array
+
+        # -- draw this array to the screen using openGL
+        # -- grab it from the screen using an ofImage
+        # -- resize the ofImage
+        # -- convert the ofImage into an ofxCvColorImage and pass it to the output
+
+        # -- draw a black rectangle over the area that we were drawing in (bottom left corner)
+        # ---------------------------------------------------------------------------------------------------------------------------------------------
+
+        # draw image at bottom left (since openGL's glReadPixelsf's coordinate system puts (0,0) at bottom left )
         self.imageIn.value[0].draw(0, ofGetHeight() - self.h, self.w, self.h)
-        self.pixels = glReadPixelsf(0, 0, self.w, self.h, GL_RGB)
-
-        a = numpy.array(self.pixels)
-        # a[:, :, 0] = 0
+        # turn image into rgb_pixel numpy array
+        rgb_pixels = numpy.array(glReadPixelsf(0, 0, self.w, self.h, GL_RGB))
         
-        hsv_array = cspace.rgb2hsv(a)
-        hue = hsv_array[:, :, 0]
-        saturation = hsv_array[:, :, 1]
-        hue = self.vBetween(hue, 0.2, 0.9)
-        saturation = self.vAbove(saturation, 0.5)
+        # convert our array to the HSV colorspace
+        hsv_array = cspace.rgb2hsv(rgb_pixels)
 
-        h_and_s = numpy.zeros((self.w, self.h, 3))
-        h_and_s[:, :, 0] = hue
-        h_and_s[:, :, 1] = saturation
+        # make hue and saturation arrays from the H and S columns of the hsv_array, running them
+        # through the vBetween and vAbove thresholding filters as they are created
+        hue = self.vBetween(hsv_array[:, :, 0], 0.2, 0.9)
+        saturation = self.vAbove(hsv_array[:, :, 1], 0.5)
 
-        final = numpy.zeros((self.w, self.h, 3))
+        # compare the hue and saturation channels, making a 1 only if both channels contain a 1
+        dual = self.vBothChannels(hue, saturation)
 
-        # dual = h_and_s[:, :, 0] == h_and_s[:, :, 1]
-        # dual = dual.astype(int)
-        # print dual[0]
-        # final[:, :, 0] = dual.astype(float)
-
-        dual = self.vBothChannels(h_and_s[:, :, 0], h_and_s[:, :, 1])
+        # create our finished array and fill it with the 'dual' array
+        final = numpy.empty((self.w, self.h, 3))
         final[:, :, 0] = final[:, :, 1] = final[:, :, 2] = dual
         
+        # draw the final array to the screen
         glDrawPixelsf(GL_RGB, final)
 
+        # grab the image we just drew
         self.finalImage.grabScreen(0, ofGetHeight()-self.h, self.w, self.h)
+        # scale the image to match the rest of the ARIEL environment
         self.finalImage.resize(640, 480)
-        # self.finalImage.draw(self.w, 0)
         
+        # put the finalImage pixels in our ofxCvColorImage to match the ARIEL image data type
         self.cvImg.setFromPixels(self.finalImage.getPixels(), 640, 480)
+        # pass it to the output
         self.imageOut.value = [self.cvImg, True]
 
+        # draw a black box over the area we drew to in the bottom left corner
         glColor3f(0, 0, 0)
         glRectf(0, ofGetHeight()-self.h, self.w, ofGetHeight())
         glColor3f(1, 1, 1)
 
-        print time.time()-ms
+    # --------------------------------------------------------------------------------
+    # these functions gets vectorized in __init__ (and thus are never called directly)
 
     def above(self, number, low):
-        # print "numarray came in as:",numarray
         if number > low:
             return 1
         return 0
@@ -2778,6 +2794,8 @@ class FindColor(Node):
         if c1 == c2 and c1 == 1:
             return 1
         return 0
+
+    # --------------------------------------------------------------------------------
 
 
 
