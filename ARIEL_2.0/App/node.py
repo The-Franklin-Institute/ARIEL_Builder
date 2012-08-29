@@ -3396,7 +3396,7 @@ class FindColor(Node):
         try:
             Node.setParameterDict(self, d)
             self.low.currentText = `d["low"]`
-            self.y_pos.currentText = `d["high"]`
+            self.high.currentText = `d["high"]`
         except KeyError:
             print self.label,"had a backwards compatibility issue. Check to make sure all the parameters are correct."
 
