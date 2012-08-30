@@ -2897,6 +2897,9 @@ for n in nodes:
         exec(cmd)
     
     #print classname, newNode
+    if hasattr(newNode, "ARIELCLASS"):
+        if newNode.player_draw:
+            newNode.draw = newNode.player_draw
     activeNodes.append(newNode)
 
 #print "active",activeNodes
