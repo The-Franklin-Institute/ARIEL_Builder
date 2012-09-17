@@ -2900,6 +2900,9 @@ for n in nodes:
     if hasattr(newNode, "ARIELCLASS"):
         if newNode.player_draw:
             newNode.draw = newNode.player_draw
+    # if hasattr(newNode, "ARIELCLASS"):
+    #     if newNode.player_draw:
+    #         newNode.draw = newNode.player_draw
     activeNodes.append(newNode)
 
 #print "active",activeNodes
