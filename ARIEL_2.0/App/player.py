@@ -2763,7 +2763,7 @@ class FindColor(Node):
         # else:
         #     hue = self.vBetweenWithSweep(hsv_array[:, :, 0], self.low, self.high)
         hue = self.vBetween(hsv_array[:, :, 0], 0.2, 0.9)
-        saturation = self.vAbove(hsv_array[:, :, 1], 0.6)
+        saturation = self.vAbove(hsv_array[:, :, 1], 0.7)
 
         # compare the hue and saturation channels, making a 1 only if both channels contain a 1
         dual = self.vBothChannels(hue, saturation)
@@ -2897,9 +2897,6 @@ for n in nodes:
         exec(cmd)
     
     #print classname, newNode
-    if hasattr(newNode, "ARIELCLASS"):
-        if newNode.player_draw:
-            newNode.draw = newNode.player_draw
     # if hasattr(newNode, "ARIELCLASS"):
     #     if newNode.player_draw:
     #         newNode.draw = newNode.player_draw
