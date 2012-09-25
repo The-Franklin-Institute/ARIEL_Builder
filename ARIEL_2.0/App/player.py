@@ -793,14 +793,14 @@ class BackgroundDifferencing(Node):
         self.imageOut.value = [self.bgDiff, False]
 
     def compute(self):
+        # if the trigger is nonzero, get a new image to subtract from
+        if self.triggerEvent.value:
+            self.backgroundImg.assign(self.inputGrayImg)
+
         # if there's a new image
         if self.imageData.value and self.imageData.value[1] == True:
             # grab the image (converting it to grayscale if it wasn't already)
             self.inputGrayImg.assign(self.imageData.value[0])
-            # if the trigger input gets an event
-            if self.triggerEvent.value:
-                # save the background, to be subtracted from
-                self.backgroundImg.assign(self.inputGrayImg)
             # actual subtraction
             self.bgDiff.absDiff(self.backgroundImg, self.inputGrayImg)
             self.imageOut.value = [self.bgDiff, True]
