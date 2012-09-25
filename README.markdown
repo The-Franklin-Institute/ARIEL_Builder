@@ -47,6 +47,6 @@ of the author(s) and do not necessarily reflect the views of the National Scienc
 Technical Details
 =================
 
-ARIEL Builder is programmed completely in Python, making use of the OpenFrameworks library (which has been compiled to run from Python using SWIG). It runs within an OpenGL context; this allows access to both OpenFrameworks tools and native OpenGL functions (using PyOpenGL) in the same space.
+ARIEL Builder is programmed completely in Python, making use of the OpenFrameworks library (which has been compiled to run from Python using SWIG). It runs within an OpenGL context; this allows access to both OpenFrameworks tools and native OpenGL functions in the same space. The context is running in C++, making it several times faster than using equivalent PyOpenGL calls.
 
 While there is no official developer documentation yet, take a look at `builder.py` (environment), `node.py` (nodes), and `player.py` (node functions) to get started. All GUI tools are located in `ARIEL_2.0/App/python/lib/python2.6/site-packages/psl/gui.py`
