@@ -765,8 +765,8 @@ class GlyphTracking(Node):
                 self.fiducials[0].append(self.artk.getMarkerID(i))
             self.glyphsOut.value = self.fiducials[:]
     
-    # def draw(self):
-    #     self.artk.draw(0,0)
+    def draw(self):
+        self.artk.draw(0,0)
 
 
 class BackgroundDifferencing(Node):
@@ -1718,6 +1718,11 @@ class RotaryEncoders(Node):
             self.v2Pin[6] = 1
         if self.firmata.analog_read(1) > self.pinThresh:
             self.v2Pin[7] = 1
+        print self.firmata.analog_read(5),
+        print self.firmata.analog_read(4),
+        print self.firmata.analog_read(3),
+        print self.firmata.analog_read(2),
+        print self.firmata.analog_read(1) 
         self.v2read = self.v1Pin[0]+self.v1Pin[1]*2+self.v1Pin[2]*4+self.v1Pin[3]*8+self.v1Pin[4]*16+self.v1Pin[5]*32+self.v1Pin[6]*64+self.v1Pin[7]*128
         self.v1read = self.v2Pin[0]+self.v2Pin[1]*2+self.v2Pin[2]*4+self.v2Pin[3]*8+self.v2Pin[4]*16+self.v2Pin[5]*32+self.v2Pin[6]*64+self.v2Pin[7]*128
     
@@ -1735,7 +1740,126 @@ class RotaryEncoders(Node):
                 yy = math.sin(self.v2angle)
                 self.v2angle = math.degrees( math.atan2(yy, xx) )
         
-    
+
+
+class SingleRotaryEncoder(Node):
+
+    def __init__(self):
+        Node.__init__(self)
+        self.choice = 0
+        self.out = NodeOutput("encoder output")
+        self.outputs = [self.out]
+
+        self.v1Pin = [0, 0, 0, 0, 0, 0, 0, 0]
+        self.conv = [127, 63,62,58,56,184,152,24,8,72,73,77,79,15,47,175,191,\
+            159,31,29,28,92,76,12,4,36,164,166,167,135,151,215,223,207,143,142,\
+            14,46,38,6,2,18,82,83,211,195,203,235,239,231,199,71,7,23,19,3,1,9,\
+            41,169,233,225,229,245,247,243,227,163,131,139,137,129,128,132,148,\
+            212,244,240,242,250,251,249,241,209,193,197,196,192,64,66,74,106,122,\
+            120,121,125,253,252,248,232,224,226,98,96,32,33,37,53,61,60,188,190,\
+            254,126,124,116,112,113,49,48,16,144,146,154,158,30,94,95]
+
+        self.v1read = 0
+        self.v1angle = 0
+        self.mag_cal = 0
+
+    def setup(self):
+        # firmata stuff
+        files = os.listdir("/dev")
+        files = filter(lambda f: "tty.usbmodem" in f, files)
+        # print "firmata candidates:",files
+        print "choosing",self.choice,":",files[int(self.choice)]
+        self.portname = "/dev/" + files[int(self.choice)]
+
+        self.firmata = firmata.Arduino(self.portname, 57600)
+        for i in range(2, 13):
+            self.firmata.pin_mode(i, firmata.INPUT)
+
+    def compute(self):
+        self.firmata.poll()
+        self.readPins()
+        self.angleFromPins()
+        self.out.value = self.v1angle + 180
+
+    def readPins(self):
+        for i in range(len(self.v1Pin)):
+            self.v1Pin[i] = self.firmata.digital_read(i + 2)
+        
+        self.v1read = self.v1Pin[0]+self.v1Pin[1]*2+self.v1Pin[2]*4+self.v1Pin[3]*8+self.v1Pin[4]*16+self.v1Pin[5]*32+self.v1Pin[6]*64+self.v1Pin[7]*128
+
+    def angleFromPins(self):
+        for i in range(len(self.conv)):
+            if self.conv[i] == self.v1read:
+                self.v1angle = (i*360 / 128-self.mag_cal) * math.pi/180
+                xx = math.cos(self.v1angle)
+                yy = math.sin(self.v1angle)
+                self.v1angle = math.degrees( math.atan2(yy, xx) )
+
+
+# class SingleRotaryEncoder(Node):
+
+#     def __init__(self):
+#         Node.__init__(self)
+#         self.choice = 0
+#         self.out = NodeOutput("encoder output")
+#         self.outputs = [self.out]
+
+#         self.v1Pin = [0, 0, 0, 0, 0, 0, 0, 0]
+#         self.conv = [127, 63,62,58,56,184,152,24,8,72,73,77,79,15,47,175,191,\
+#             159,31,29,28,92,76,12,4,36,164,166,167,135,151,215,223,207,143,142,\
+#             14,46,38,6,2,18,82,83,211,195,203,235,239,231,199,71,7,23,19,3,1,9,\
+#             41,169,233,225,229,245,247,243,227,163,131,139,137,129,128,132,148,\
+#             212,244,240,242,250,251,249,241,209,193,197,196,192,64,66,74,106,122,\
+#             120,121,125,253,252,248,232,224,226,98,96,32,33,37,53,61,60,188,190,\
+#             254,126,124,116,112,113,49,48,16,144,146,154,158,30,94,95]
+
+#         self.v1read = 0
+#         self.v1angle = 0
+#         self.mag_cal = 0
+#         self.pinThresh = 1000
+
+#     def setup(self):
+#         # firmata stuff
+#         files = os.listdir("/dev")
+#         files = filter(lambda f: "tty.usbmodem" in f, files)
+#         # print "firmata candidates:",files
+#         print "choosing",self.choice,":",files[int(self.choice)]
+#         self.portname = "/dev/" + files[int(self.choice)]
+
+#         self.firmata = firmata.Arduino(self.portname, 57600)
+#         for i in range(2, 13):
+#             self.firmata.pin_mode(i, firmata.INPUT)
+
+#     def compute(self):
+#         self.firmata.poll()
+#         self.readPins()
+#         self.angleFromPins()
+#         self.out.value = self.v1angle + 180
+
+#     def readPins(self):
+#         self.v1Pin[0] = self.firmata.digital_read(10)
+#         self.v1Pin[1] = self.firmata.digital_read(11)
+#         self.v1Pin[2] = self.firmata.digital_read(12)
+#         if self.firmata.analog_read(5) > self.pinThresh:
+#             self.v1Pin[3] = 1
+#         if self.firmata.analog_read(4) > self.pinThresh:
+#             self.v1Pin[4] = 1
+#         if self.firmata.analog_read(3) > self.pinThresh:
+#             self.v1Pin[5] = 1
+#         if self.firmata.analog_read(2) > self.pinThresh:
+#             self.v1Pin[6] = 1
+#         if self.firmata.analog_read(1) > self.pinThresh:
+#             self.v1Pin[7] = 1
+#         self.v1read = self.v1Pin[0]+self.v1Pin[1]*2+self.v1Pin[2]*4+self.v1Pin[3]*8+self.v1Pin[4]*16+self.v1Pin[5]*32+self.v1Pin[6]*64+self.v1Pin[7]*128
+
+#     def angleFromPins(self):
+#         for i in range(len(self.conv)):
+#             if self.conv[i] == self.v1read:
+#                 self.v1angle = (i*360 / 128-self.mag_cal) * math.pi/180
+#                 xx = math.cos(self.v1angle)
+#                 yy = math.sin(self.v1angle)
+#                 self.v1angle = math.degrees( math.atan2(yy, xx) )
+
 
 class Arduino(Node):
     

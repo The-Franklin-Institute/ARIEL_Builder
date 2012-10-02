@@ -2136,6 +2136,49 @@ class RotaryEncoders(Node):
         self.doSimplePropertyWindow("Reads two rotary encoders as degrees.")
         self.propertyWindow.h = 150
         self.placePropertyOkay()
+
+
+class SingleRotaryEncoder(Node):
+
+    def __init__(self):
+        Node.__init__(self)
+        self.label = "rotary encoder"
+        self.tooltip = node_descriptions.get(self.label)
+        self.icon.loadImage("icons/rotary.png")
+        self.addOutput(NumberOutput(self, "encoder output"))
+
+        # title
+        l = gui.Label(self.propertyWindow)
+        l.font = fontmanager.manager.getFont("Frutiger-Bold.ttf",14)
+        l.setMessage("OSC send")
+        l.setPosition(10,0)
+        l._setW(300)
+
+        # label
+        l = gui.Label(self.propertyWindow)
+        l.font = fontmanager.manager.getFont("Frutiger-Roman.ttf",10)
+        l.setMessage("Which Arduino?")
+        l.setPosition(10,50)
+        l._setW(300)
+
+        # textfield
+        self.choice = gui.TextEntry(self.propertyWindow)
+        self.choice.w = 50
+        self.choice.currentText = "0"
+        self.choice.setPosition(10, 74)
+
+    def setParameterDict(self, d):
+        try:
+            Node.setParameterDict(self, d)
+            self.choice.currentText = d["choice"]
+        except KeyError:
+            print self.label,"had a backwards compatibility issue. Check to make sure all the parameters are correct."
+    
+    def getParameterDict(self):
+        d = {}
+        d = Node.getParameterDict(self)
+        d["choice"] = self.choice.currentText
+        return d
     
 
 class Arduino(Node):
