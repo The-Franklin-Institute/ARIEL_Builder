@@ -3,7 +3,7 @@ ARIEL BUILDER v2.0
 
 ARIEL Builder is a visual programming language for prototyping augmented reality interactive software, developed as part of The Franklin Institute's ARIEL Grant.
 
-For a pre-packaged installer file, visit http://www.fi.edu/ARIEL/software/
+For a pre-packaged installer file, visit http://www.fi.edu/ariel/software.php
 
 It is licensed with a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
 It makes use of OpenFrameworks, distributed under the MIT License.
