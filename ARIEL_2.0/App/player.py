@@ -1794,6 +1794,69 @@ class Arduino(Node):
                 # then read the digital pins
                 self.outputs[i].value = self.firmata.digital_read(i+2) 
 
+
+class ArduinoPWM(Node):
+    
+    def __init__(self):
+        Node.__init__(self)
+        # ins and outs are brought over from node.py...
+        # they determine which pins we will actually set and read.
+        self.ins = []
+        self.outs = []
+        # self.aPin is the number of digital pins,
+        # used to determine when a pin is analog vs. digital
+        self.aPin = 12
+        #----
+        for i in range(0, 12):
+            # create the digital pin inputs and outputs
+            self.inputs.append(NodeInput("pin"+str(i+2)))
+            self.outputs.append(NodeOutput("pin"+str(i+2)))
+        for i in range(0, 6):
+            # create the analog outputs
+            self.outputs.append(NodeOutput("a"+str(i)))
+        #----
+        files = os.listdir("/dev")
+        files = filter(lambda f: "tty.usbmodem" in f, files)
+        print "firmata candidates:",files
+        print "choosing",files[0]
+        self.portname = "/dev/" + files[0]
+    
+    def setup(self):
+        self.firmata = firmata.Arduino(self.portname, 57600)
+        for i in self.ins:
+            # counterintuitive: ins are inputs to the node,
+            #which are actually OUTPUTS to the arduino pins
+            if i < self.aPin:
+                # self.firmata.pin_mode(i+2, firmata.OUTPUT)
+                print "set pin",i+2,"to firmata.OUTPUT"
+        for i in self.outs:
+            if i < self.aPin:
+                self.firmata.pin_mode(i+2, firmata.INPUT)
+                print "set pin",i+2,"to firmata.INPUT"
+        for i in self.ins:
+            self.firmata.digital_write(i+2, firmata.LOW)
+    
+    def compute(self):
+        self.firmata.poll()
+        for i in self.ins:
+            # self.ins are incoming messages, which go to the OUTPUTS
+            if self.inputs[i].value > 0:
+                print self.inputs[i].value
+                # if i in (1, 3, 4, 7, 8, 9):
+                #     # self.firmata.analog_write(i+2, self.inputs[i].value)
+                #     self.firmata.analog_write(i+2, 100)
+                # else:
+                self.firmata.digital_write(i+2, firmata.HIGH)
+            else:
+                self.firmata.digital_write(i+2, firmata.LOW)
+        for i in self.outs:
+            if i >= self.aPin:
+                # read the analog pins (if they are hooked up to anything)
+                self.outputs[i].value = self.firmata.analog_read(i - self.aPin)
+            else:
+                # then read the digital pins
+                self.outputs[i].value = self.firmata.digital_read(i+2) 
+
 colorMapBlue = {}
 for n in range(101):
     colorMapBlue[n] = (n/100.0,n/100.0,1)

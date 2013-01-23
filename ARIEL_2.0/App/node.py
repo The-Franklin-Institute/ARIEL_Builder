@@ -2269,6 +2269,139 @@ class Arduino(Node):
             ofLine(self.x, 0, self.x, ofGetHeight())
 
 
+class ArduinoPWM(Node):
+    
+    def __init__(self):
+        Node.__init__(self)
+        self.label = "Arduino+PWM"
+        self.tooltip = node_descriptions.get(self.label)
+        self.icon.loadImage("icons/arduino.png")
+        for i in range(2, 14):
+            self.addInput(NumberInput(self, "pin" + str(i)))
+            self.addOutput(NumberOutput(self, "pin" + str(i)))
+        for i in range(0, 6):
+            self.addOutput(NumberOutput(self, "a" + str(i)))
+        # self.addOutput(NumberOutput(self, "pinread"))
+        self.doSimplePropertyWindow("Arduino, via Firmata.")
+        self.propertyWindow.h = 150
+        self.placePropertyOkay()
+        
+        self.ins = []
+        self.outs = []
+    
+    def setParameterDict(self, d):
+        try:
+            Node.setParameterDict(self, d)
+            self.ins = `d["ins"]` # array of inputs that are used
+            self.outs = `d["outs"]` # array of outputs that are used
+        except KeyError:
+            print self.label,"had a backwards compatibility issue. Check to make sure all the parameters are correct."
+
+    def getParameterDict(self):
+        d = Node.getParameterDict(self)
+        self.outs = []
+        self.ins = []
+        for i in range(len(self.outputs)):
+            if isinstance(self.outputs[i], NodeOutput) and self.outputs[i].connection != None:
+                self.outs.append(i)
+        for i in range(len(self.inputs)):
+            global connector
+            if isinstance(self.inputs[i], NodeInput):
+                if connector.isConnected(self.inputs[i]):
+                    self.ins.append(i)
+                    # print "appended",self.inputs[i].label,"as",i
+            
+            #elif isinstance(self.children[i], NodeInput):
+                #global connector
+                #if connector.isConnected(self.children[i]):
+                    #self.ins.append(i)
+        d["ins"] = self.ins
+        d["outs"] = self.outs
+        return d
+
+    #------------------------------- these functions are exposed to change the node's appearance
+
+    def doConnectionLayout(self):
+        
+        start = 10
+        end = self.w - 10
+        outSpacing = float(end - start)/max(1,len(self.outputs)-1)
+        outStartX = 10 + outSpacing
+        
+        if len(self.outputs):
+            self.outputs[0].setPosition(10,self.h+7)
+        for o in self.outputs[1:]:
+            o.setPosition(outStartX,self.h+7)
+            outStartX += outSpacing
+        
+        inSpacing = outSpacing
+        inStartX = 5 + inSpacing
+        
+        if len(self.inputs):
+            self.inputs[0].setPosition(5, -6)
+        for i in self.inputs[1:]:   
+            i.setPosition(inStartX, -6)
+            inStartX += inSpacing
+        
+        self.w = max(43, max(len(self.outputs),len(self.inputs))*25)
+        self.placeDeleteButton()
+
+    def draw(self):
+        glPushMatrix()
+        glTranslatef(self.x, self.y, self.z)
+        # if not o.connection, draw
+        global connector
+        for i in range(len(self.inputs)):
+            if not connector.isConnected(self.inputs[i]):
+                self.outputs[i].draw()
+            if not self.outputs[i].connection:
+                self.inputs[i].draw()
+        for o in self.outputs[len(self.outputs)-6:]:
+            o.draw()
+        # for i in self.inputs:
+        #     i.draw()
+        # for o in self.outputs:
+        #     o.draw()
+        #x x x ------ self.notes.draw() ------ x x x
+        glPopMatrix()
+
+        if self.selector.isSelected(self):
+            gui.Button.drawHighlight(self)
+            gui.Button.draw(self)
+        else:
+            gui.Button.draw(self)
+            gui.Button.drawOutline(self, color_pallet.node_box_outline)
+
+        # if self.icon:
+        #     ofEnableAlphaBlending()
+        #     self.icon.draw(self.x+ self.w/2 - 12,self.y + 8)
+        if gui.manager.showNames or self.mouseState == gui.MouseState.MOUSE_HOVER or self.mouseState == gui.MouseState.MOUSE_DRAGGING_US:
+            if self.selector.isSelected(self):
+                apply(glColor3f, color_pallet.node_box_outline_highlight_top)
+            else:
+                apply(glColor3f, color_pallet.node_box_text)
+            self.font.drawString(self.label,self.x + self.w + 7, self.y + self.h - 34)
+        boxWidth = 273
+        glColor3f(0.9, 0.9, 0.9)
+        glRectf(self.x + 5, self.y + 5, self.x + boxWidth + 5, self.y + self.h - 5)
+        glRectf(self.x + boxWidth + 17, self.y + 5, self.x + boxWidth + 147, self.y + self.h - 5)
+        # ofSetColor(100, 100, 100)
+        glColor3f(0.4, 0.4, 0.4)
+        self.font.drawString("digital", self.x + boxWidth/2 - 20, self.y + self.h/2 + 5)
+        self.font.drawString("analog", self.x + boxWidth + 55, self.y + self.h/2 + 5)
+        glColor3f(0.6, 0.3, 0)
+        glRectf(self.x + 29, self.y + 3, self.x + 29 + 5, self.y + 3 + 5)
+        if self.mouseState == gui.MouseState.MOUSE_HOVER:
+            glPushMatrix()
+            glTranslatef(self.x, self.y, self.z)
+            self.deleteButton.draw()
+            glPopMatrix()
+        if gui.manager.alignTool and self.mouseState == gui.MouseState.MOUSE_DRAGGING_US:
+            apply(ofSetColor, color_pallet.align_tool)
+            ofLine(0, self.y, ofGetWidth(), self.y)
+            ofLine(self.x, 0, self.x, ofGetHeight())
+
+
 class ExpressionBuilder(Node):
 
     def __init__(self):

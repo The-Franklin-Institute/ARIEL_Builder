@@ -85,6 +85,7 @@ labelsToNodes["container outlet"] = node.ContainerOutlet
 labelsToNodes["container title"] = node.ContainerTitle
 # arduino
 labelsToNodes["Arduino"] = node.Arduino
+labelsToNodes["Arduino+PWM"] = node.ArduinoPWM
 # labelsToNodes["rotary encoders"] = node.RotaryEncoders
 
 
@@ -169,6 +170,7 @@ containerNodes.append(("container outlet", "icons/outlet.png", x, y))
 containerNodes.append(("container title", "icons/container.png", x, y))
 #
 arduinoNodes.append(("Arduino","icons/arduino.png", x, y))
+arduinoNodes.append(("Arduino+PWM", "icons/arduino.png", x, y))
 # arduinoNodes.append(("rotary encoders","icons/user.png", x, y))
 
 import arielplugin
