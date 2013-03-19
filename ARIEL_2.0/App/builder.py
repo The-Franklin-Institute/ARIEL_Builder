@@ -706,6 +706,8 @@ class ArielBuilder(ofBaseApp):
         gui.manager.createPropertyDrawer()
 
         self.aboutWindowIsShowing = False
+
+        ofSetVerticalSync(True)
     
     def doAbout(self):
 
