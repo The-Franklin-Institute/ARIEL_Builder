@@ -13,11 +13,6 @@ https://github.com/The-Franklin-Institute/ARIEL_Builder
 
 * * *
 
-Developer Documentation
-=======================
-
-Detailed developer documentation is now on this github's [wiki](https://github.com/The-Franklin-Institute/ARIEL_Builder/wiki).
-
 System Requirements
 ===================
 
@@ -26,6 +21,13 @@ This is currently Mac-Only.
 * OS X 10.6 or higher
 * Minimum 2Gb RAM
 * Takes 300Mb hard drive space
+
+* * *
+
+Developer Documentation
+=======================
+
+Detailed developer documentation is now on this github's [wiki](https://github.com/The-Franklin-Institute/ARIEL_Builder/wiki).
 
 * * *
 
